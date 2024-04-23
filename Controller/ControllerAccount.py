@@ -17,4 +17,5 @@ class Account():
         return self.model.find_nama_id(nama_user, id_user)
     
     def find_admin(self, username, password):
+        # Panggil metode find_admin dari ModelDatabase untuk mencari admin
         return self.model.find_admin(username, password)
