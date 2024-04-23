@@ -7,9 +7,11 @@ class WisataController:
     def add_wisata(self, nama_wisata, lokasi, deskripsi):
         return self.db.add_wisata(nama_wisata, lokasi, deskripsi)
     
-    def get_wisata(self, wisata_id = None):
-        return self.db.get_wisata(wisata_id)
-    
+    def get_wisata(self):
+        results = self.db.get_wisata()
+        for result in results:
+            print(f"ID: {result[0]}\nNama: {result[1]}\nLokasi: {result[2]}\nDeskripsi: {result[3]}\n")
+
     def update_wisata(self, wisata_id, nama_wisata, lokasi, deskripsi):
         self.db.update_wisata(wisata_id, nama_wisata, lokasi, deskripsi)
     
@@ -20,7 +22,7 @@ class WisataController:
         results = self.db.search_wisata(search_query)
         if results:
             for result in results:
-                print(f"ID: {result[0]}, Name: {result[1]}, Location: {result[2]}, Description: {result[3]}")
+                print(f"ID: {result[0]}, Nama: {result[1]}, Lokasi: {result[2]}, Deskripsi: {result[3]}")
         else:
             print("No matching wisata found.")
     
