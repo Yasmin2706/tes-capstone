@@ -64,10 +64,10 @@ def menu_admin():
                     print("Tempat wisata telah ditambahkan!")
 
                 elif opsi == '2':
+                    os.system('cls')
                     print("====================================")
                     print("|        LIHAT TEMPAT WISATA       |")
                     print("====================================")
-                    os.system('cls')
                     id_wisata = input("Masukan ID tempat wisata (Kosongkan untuk melihat semua tempat wisata) : ")
                     if id_wisata:
                         wisata = wisata_controller.get_wisata(id_wisata)
