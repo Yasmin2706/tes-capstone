@@ -1,6 +1,7 @@
 from Controller.ControllerAccount import Account
 from Controller.ControllerUser import User
 from Controller.ControllerWisata import WisataController
+from Controller.ControllerBookmark import BookmarkController
 from Model.Database import Database
 from View import admin_view
 from View import main_view
@@ -9,6 +10,7 @@ import os
 acc = Account()
 db = Database()
 db.connect()
+bookmark_controller = BookmarkController(db)
 wisata_controller = WisataController(db)
 
 def menu_user():
@@ -137,11 +139,7 @@ def menu_pengunjung():
                     print("====================================")
                     print("|        LIHAT TEMPAT WISATA       |")
                     print("====================================")
-                    id_wisata = input("Masukan ID tempat wisata (Kosongkan untuk melihat semua tempat wisata) : ")
-                    if id_wisata:
-                        wisata = wisata_controller.get_wisata(id_wisata)
-                    else:
-                        wisata = wisata_controller.get_wisata()
+                    wisata_controller.get_wisata()
                     
                 elif opsi == '3':
                     os.system('cls')
@@ -163,6 +161,15 @@ def menu_pengunjung():
                     print("====================================")
                     print("|             BOOKMARK             |")
                     print("====================================")
+                    print(" [1] Lihat Bookmark")
+                    print(" [2] Tambah ke bookmark")
+                    pilih = int(input("Pilih menu (1/2): "))
+                    if pilih == 1:
+                        bookmark_controller.lihat_bookmark()
+                    elif pilih ==2:
+                        pass
+                    else:
+                        print("Opsi tidak tersedia!")
 
                 elif opsi == '5':
                     menu_user()
