@@ -1,10 +1,15 @@
 from Controller.ControllerAccount import Account
 from Controller.ControllerUser import User
+from Controller.ControllerWisata import WisataController
+from Model.Database import Database
 from View import admin_view
 from View import main_view
 import os
 
 acc = Account()
+db = Database()
+db.connect()
+wisata_controller = WisataController(db)
 
 def menu_user():
     while True :
@@ -122,18 +127,46 @@ def menu_pengunjung():
                 opsi = str(input("Pilih opsi anda (1/2/3/4/5): "))
                 if opsi == '1':
                     os.system('cls')
-                    pass
+                    print("====================================")
+                    print("|        CARI TEMPAT WISATA       |")
+                    print("====================================")
+                    search_query = input("Masukan nama atau lokasi wisata: ")
+                    wisata_controller.search_wisata(search_query)
                 elif opsi == '2':
                     os.system('cls')
-                    pass
+                    print("====================================")
+                    print("|        LIHAT TEMPAT WISATA       |")
+                    print("====================================")
+                    id_wisata = input("Masukan ID tempat wisata (Kosongkan untuk melihat semua tempat wisata) : ")
+                    if id_wisata:
+                        wisata = wisata_controller.get_wisata(id_wisata)
+                    else:
+                        wisata = wisata_controller.get_wisata()
+                    
                 elif opsi == '3':
                     os.system('cls')
-                    pass
+                    print("====================================")
+                    print("|        URUTKAN TEMPAT WISATA       |")
+                    print("====================================")
+                    print(" [1] Urutkan berdasarkan nama wisata A-Z")
+                    print(" [2] Urutkan berdasarkan nama wisata Z-A")
+                    pilih = int(input("Pilih menu (1/2): "))
+                    if pilih == 1:
+                        wisata_controller.show_sorted_wisata_ascending()
+                    elif pilih ==2:
+                        wisata_controller.show_sorted_wisata_descending()
+                    else:
+                        print("Opsi tidak tersedia!")
+
                 elif opsi == '4':
                     os.system('cls')
-                    pass
+                    print("====================================")
+                    print("|             BOOKMARK             |")
+                    print("====================================")
+
                 elif opsi == '5':
                     menu_user()
+                    break
                 else:
                     print("Opsi tidak tersedia!")
 
