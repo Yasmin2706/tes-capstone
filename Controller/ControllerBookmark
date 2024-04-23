@@ -1,0 +1,23 @@
+from Controller.ControllerAccount import Account
+from Controller.ControllerBookmark import BookmarkController
+from Model.Database import Database
+
+acc = Account()
+db = Database()
+db.connect()
+bookmark_controller = BookmarkController(db)
+
+class BookmarkController:
+
+    def __init__(self, database):
+        self.db = database
+        self.account = Account
+
+    def lihat_bookmark(self, user_id):
+        user_id = self.account.find_nama_id()
+        results = self.db.lihat_bookmark(user_id)
+        if results:
+            for result in results:
+                print(f"ID: {result[0]}\n: {result[1]}\nLokasi: {result[2]}\nDeskripsi: {result[3]}\n")
+        else:
+            print("Belum ada bookmark")
