@@ -55,17 +55,13 @@ class Database:
         self.connection.commit()
 
         return myCursor.lastrowid
-    
-    def get_wisata(self, id_wisata = None):
+
+    def get_wisata(self):
         myCursor = self.connection.cursor()
-        if id_wisata:
-            query = "SELECT * FROM Wisata WHERE ID_Wisata = %s"
-            myCursor.execute(query, (id_wisata,))
-        else:
-            query = "SELECT * FROM Wisata"
-            myCursor.execute(query)
-        
-        return myCursor.fetchall()
+        query = "SELECT * FROM Wisata"
+        myCursor.execute(query)
+
+        return myCursor.fetchall() 
     
     def update_wisata(self, id_wisata,  nama_wisata=None, lokasi=None, deskripsi=None):
         query = "UPDATE Wisata SET Nama_Wisata = %s, Lokasi = %s, Deskripsi = %s WHERE ID_Wisata = %s"
@@ -105,4 +101,17 @@ class Database:
         query = "SELECT * FROM Wisata ORDER BY Nama_Wisata DESC"
         myCursor.execute(query)
         
+        return myCursor.fetchall()
+    
+    def tambah_bookmark(self, user_id, nama, lokasi, deskripsi):
+        myCursor = self.connection.cursor()
+        query = "INSERT INTO Bookmark (user_id, nama, lokasi, deskripsi) VALUES (%s, %s, %s, %s)"
+        values = (user_id, nama, lokasi, deskripsi)
+        myCursor.execute(query, values)
+        self.connection.commit()
+    
+    def lihat_bookmark(self, user_id):
+        myCursor = self.connection.cursor()
+        query = "SELECT * FROM Bookmark WHERE user_id = %s"
+        myCursor.execute(query, (user_id,))
         return myCursor.fetchall()
