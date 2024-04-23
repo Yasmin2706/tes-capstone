@@ -1,12 +1,10 @@
 from Controller.ControllerAccount import Account
-from Controller.ControllerLinkedList import LinkedList
 from Controller.ControllerWisata import WisataController
 from Model.Database import Database
 from View import user_view
 from View import main_view
 import os
 
-ll = LinkedList()
 acc = Account()
 db = Database()
 db.connect()
@@ -68,11 +66,7 @@ def menu_admin():
                     print("====================================")
                     print("|        LIHAT TEMPAT WISATA       |")
                     print("====================================")
-                    id_wisata = input("Masukan ID tempat wisata (Kosongkan untuk melihat semua tempat wisata) : ")
-                    if id_wisata:
-                        wisata = wisata_controller.get_wisata(id_wisata)
-                    else:
-                        wisata = wisata_controller.get_wisata()
+                    wisata_controller.get_wisata()
 
                 elif opsi == '3':
                     os.system('cls')
